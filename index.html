@@ -1,0 +1,46 @@
+<html>
+  <head>
+	<script src="p5.min.js"></script>
+	<script src="src/B_Components/B_RAM.js"></script>
+	<script src="src/B_Components/B_REGISTER.js"></script>
+	<script src="src/B_Components/B_STACK.js"></script>
+	<script src="src/B_Components/B_GRAPHICS.js"></script>
+	<script src="src/B_Components/B_KEYBOARD.js"></script>
+	<script src="src/B_Components/B_CPU.js"></script>
+	<script src="src/main.js"></script>
+	<script src="src/Controllers/ChipController.js"></script>
+	<script src="src/Controllers/KeyboardController.js"></script>
+	<script src="src/Controllers/GraphicsController.js"></script>
+	<script src="test_setup.js"></script>
+	<script src="debug/mem_view.js" defer></script>
+	<script src="debug/reg_view.js" defer></script>
+	<script src="debug/pc_view.js" defer></script>
+	<script src="debug/stack_view.js" defer></script>
+	
+	<style>
+		.debug-view {
+			margin: 5px;
+		}
+	</style>
+		
+  </head>
+  
+  <body>
+	<div id="testcanv"></div>
+	<div class='debug-view'>
+		<pc-view></pc-view>
+	</div>
+	<div class='debug-view'>
+		<reg-view></reg-view>
+	</div>
+	<div class='debug-view'>
+		<stack-view></stack-view>
+	</div>
+	<div class='debug-view'>
+		<mem-view></mem-view>
+	</div>
+	<script>
+	</script>
+  </body>
+  
+</html>

@@ -1,0 +1,17 @@
+table {
+	border: 2px solid black;
+	border-collapse: collapse;
+	font-family: "Courier New";
+}
+	
+td {
+	padding: 5px 10px;
+	border: 2px solid black;
+}
+
+th {
+	padding: none;
+	background-color: #b2b2b2;
+	border: 2px solid black;
+	border-collapse: collapse;
+}
