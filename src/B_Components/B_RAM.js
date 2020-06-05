@@ -1,7 +1,7 @@
 // RAM module with  basic read/write functions.
-function B_RAM(capacity) {
+function B_RAM() {
 	// Addressable bytes of memory.
-	this.capacity = capacity;
+	this.capacity = 4096;
 	// Memory data.
 	this.memory = [];
 	// Observer to notify of write operations.

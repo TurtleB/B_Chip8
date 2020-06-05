@@ -1,10 +1,11 @@
 // Register file for 8-bit registers
-function B_REGISTER(numRegisters) {
+function B_REGISTER() {
 	this.registers = [];
 	this.observer = null;
+	this.numRegisters = 16;
 	
 	// Initialize registers to 0
-	for(var i = 0; i < numRegisters; i++) {
+	for(var i = 0; i < this.numRegisters; i++) {
 		this.registers.push(0);
 	}
 	

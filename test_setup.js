@@ -4,11 +4,6 @@
 // TODO - Implement sound
 // TODO - Make debug view for keyboard
 
-var b_register = new B_REGISTER(16);
-var b_stack = new B_STACK(16);
-var b_ram = new B_RAM(4096);
-var b_graphics = new B_GRAPHICS();
-var b_keyboard = new B_KEYBOARD();
 
 var MEM_DIGIT_SPRITES = [
 	0xf0, 0x90, 0x90, 0x90, 0xf0, // 0
@@ -131,8 +126,3 @@ var MEM_B_ADVENTURE = [
 	0xf6, 0x15, // LD DT, V6
 	0x12, 0x38 // JP 0x238 = Go to beginning of loop.
 ];
-
-b_ram.write(0x000, MEM_DIGIT_SPRITES);
-b_ram.write(0x200, MEM_B_ADVENTURE);
-
-var b_cpu = new B_CPU();

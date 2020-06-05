@@ -1,11 +1,12 @@
 //
-function B_STACK(size) {
+function B_STACK() {
 	this.sp = 0;
 	this.stack = [];
+	this.size = 16;
 	
 	this.observer = null;
 	
-	for(var i = 0; i < size; i++) {
+	for(var i = 0; i < this.size; i++) {
 		this.stack.push(0);
 	}
 	

@@ -2,6 +2,13 @@
  * Contains p5.js lifecycle methods, environment setup, and execution loop for B_CHIP8
  *
  */
+ 
+var b_register = null;
+var b_stack = null;
+var b_ram = null;
+var b_graphics = null;
+var b_keyboard = null;
+var b_cpu = null;
 
 var chipController = null;
 var graphicsController = null;
@@ -9,8 +16,8 @@ var keyboardController = null;
 
 //
 function setup() {
-	// TODO - Instantiate B_COMPONENTS
-	// TODO - Load program
+	initializeComponents();
+	loadProgram();
 	setupChip();
 	setupGraphics();
 	setupKeyboard();
@@ -21,10 +28,27 @@ function setup() {
 
 //
 function draw() {
-	
 	keyboardController.updateKeyState();
 	chipController.stepTimerCycle();
 	graphicsController.updateScreen();
+}
+
+
+//
+function initializeComponents() {
+	b_register = new B_REGISTER();
+	b_stack = new B_STACK();
+	b_ram = new B_RAM();
+	b_graphics = new B_GRAPHICS();
+	b_keyboard = new B_KEYBOARD();
+	b_cpu = new B_CPU();
+}
+
+
+// TODO - Load in JSON or something
+function loadProgram() {
+	b_ram.write(0x000, MEM_DIGIT_SPRITES);
+	b_ram.write(0x200, MEM_B_ADVENTURE);
 }
 
 
@@ -56,3 +80,9 @@ function setupKeyboard() {
 	keyboardController = new KeyboardController(keyMap);
 	keyboardController.setKeyboard(b_keyboard);
 }
+
+
+// TODO - Setup sound
+
+
+// TODO - Setup debug
