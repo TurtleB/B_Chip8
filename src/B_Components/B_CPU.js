@@ -325,10 +325,10 @@ function B_CPU() {
 					// Fx55 = LD [I], Vx
 					case 0x0055:
 						for(var i = 0; i < (opCode & 0x0f00) >> 8; i++) {
-							registerContents.push(this.reigster.read(i));
+							registerContents.push(this.register.read(i));
 						}
 						this.memory.write(this.vI, registerContents);
-						this.setPc(this.pc + 2);
+						this.setPC(this.pc + 2);
 					break;
 					
 					// Fx65 = LD Vx, [I]
