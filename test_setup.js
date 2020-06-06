@@ -121,8 +121,99 @@ var MEM_B_ADVENTURE = [
 	0x22, 0x26, // CALL 0x226
 	0xe4, 0xa1, // SKNP V4 = Call moveDown() if DOWN key is pressed
 	0x22, 0x2e, // CALL 0x226
-	// TODO - Check for collision with coin. If so, increment score by 1.
 	0x66, 0x02, // LD V6, 0x03 = Set delay timer
 	0xf6, 0x15, // LD DT, V6
 	0x12, 0x38 // JP 0x238 = Go to beginning of loop.
+];
+
+
+/* B ADVENTURE
+	
+Registers
+	V0 = Bx
+	V1 = By
+	V2-V5 = Key registers
+	V6 = score
+
+Memory
+	0xe00-0xe02 = BCD storage
+	0xe10-0xe1f = Main function register storage
+*/
+// TODO - Write at 0x200
+var MEM_B_ADVENTURE_2_TEST_CODE = [
+	0x2f, 0x00, // TEST DRAW FRAME
+	0x2f, 0x3a // TEST DRAW SCORE
+];
+
+// 
+
+// TODO - Write at 0xf00
+var MEM_B_ADVENTURE_2_DRAW_FUNCTIONS = [
+	// 0xf00 - drawFrame()
+	// TODO - Store / retrieve main game registers
+	0xaf, 0xf7, // LD VI, 0xff7 = Load address of 8px horizontal bar sprite into VI
+	0x60, 0x00, // LD V0, 0x00 = Set initial X coordinate of drawing to 0
+	// 0xf04 - Begin horizontal loop
+	0x61, 0x00, // LD V1, 0x00 = Set Y coordinate of drawing to 0
+	0xd0, 0x11, // DRAW V0 V1, 0x1 = Draw segment of horizontal bar at top of screen
+	0x61, 0x08, // LD V1, 0x00 = Set Y coordinate of drawing to 8
+	0xd0, 0x11, // DRAW V0 V1, 0x1 = Draw segment of horizontal bar below score area
+	0x61, 0x1f, // LD V1, 0x1f = Set Y coordinate of drawing to 31
+	0xd0, 0x11, // DRAW V0 V1, 0x1 = Draw segment of horizontal bar at bottom of screen
+	0x70, 0x08, // ADD V0, 0x8 = Add 8 to X coordinate
+	0x30, 0x40, // SE V0, 0x40 = Break loop if X coordinate is 64
+	0x1f, 0x04, // JP 0xf04 = Jump to beginning of horizontal loop
+	// 0xf16 - End horizontal loop
+	0xaf, 0xf3, // LD VI, 0xff3 = Load address of 4px vertical bar sprite into VI
+	0x61, 0x00, // LD V1, 0x00 = Set initial Y coordinate of drawing to 0
+	// 0xf1a - Begin vertical loop
+	0x60, 0x00, // LD V0, 0x00 = Set X coordinate of drawing to 0
+	0xd0, 0x14, // DRAW V0 V1, 0x1 = Draw segment of vertical bar at left of screen
+	0x60, 0x3f, // LD V0, 0x3f = Set X coordinate of drawing to 63
+	0xd0, 0x14, // DRAW V0 V1, 0x1 = Draw segment of vertical bar at right of screen
+	0x71, 0x04, // ADD V1, 0x4 = Add 4 to Y coordinate
+	0x31, 0x20, // SE V1, 0x20 = Break loop if Y coordinate is 32
+	0x1f, 0x1a, // JP 0xf1a = Jump to beginning of vertical loop
+	// 0xf28 - End vertical loop
+	0xaf, 0xf8, // LD VI, 0xff8 = Load address of 2px corner fill into VI
+	0x60, 0x3f, // LD V0, 0x3f = Set X coordintate of drawing to 63
+	0x61, 0x00, // LD V1, 0x00 = Set Y coordinate of drawing to 0
+	0xd0, 0x11, // DRAW V0, V1, 0x1 = Draw corner fill at top of screen
+	0x61, 0x08, // LD V1, 0x08 = Set Y coordinate of drawing to 8
+	0xd0, 0x11, // DRAW V0, V1, 0x1 = Draw corner fill below score area
+	0x61, 0x1f, // LD V1, 0x1f = Set Y coordinate of drawing to 63
+	0xd0, 0x11, // DRAW V0, V1, 0x1 = Draw corner fill at bottom of screen
+	0x00, 0xee, // RET = Return from drawFrame()
+	// 0xf3a - drawScore()
+	0xae, 0x10, // LD VI, 0xe10 = Load address to store main game registers
+	0xfe, 0x55, // LD [I], Ve = Store register state at 0xe10
+	0xae, 0x00, // LD VI, 0xe00 = Set VI to location of score BCD
+	0xf6, 0x33, // LD B, V6 = Store score as BCD at 0xe00-0xe02
+	0xf2, 0x65, // LD V2, [i] = Read BCD values into registers V0-V2
+	0x68, 0x02, // LD V8, 0x02 = Top align score at Y = 0x02
+	0xf0, 0x29, // LD F, V0 = Set VI to location of first digit sprite
+	0x67, 0x02, // LD V7, 0x02 = Left align score at X = 0x02
+	0xd7, 0x85, // DRAW V7 V8, 0x5 = Draw first digit of score
+	0xf1, 0x29, // LD F, V0 = Set VI to location of second digit sprite
+	0x67, 0x08, // LD V7, 0x08 = Set X position of second digit to 0x08
+	0xd7, 0x85, // DRAW V7 V8, 0x5 = Draw second digit of score
+	0xf2, 0x29, // LD F, V0 = Set VI to location of third digit sprite
+	0x67, 0x0e, // LD V7, 0x0e = Set X position of third digit to 0x0e
+	0xd7, 0x85, // DRAW V7 V8, 0x5 = Draw third digit of score
+	0xae, 0x10, // LD VI, 0xe10 = Load address to retrieve main game registers
+	0xfe, 0x65, // LD Ve, [I] = Restore registers to previous state
+	0x00, 0xee // RET = Return from drawScore()
+	
+];
+
+// TODO - Write at 0xff0
+var MEM_B_ADVENTURE_2_SPRITES = [
+	// 0xff0 - Star (3x3)
+	0xa0,0x40, 0xa0,
+	// 0xff3 - 4px vertical bar
+	0x80, 0x80, 0x80, 0x80,
+	// 0xff7 - 8px horizontal bar
+	0xff,
+	// 0xff8 - 2px corner fill
+	0xc0
 ];

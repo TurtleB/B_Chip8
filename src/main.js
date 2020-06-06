@@ -48,7 +48,9 @@ function initializeComponents() {
 // TODO - Load in JSON or something
 function loadProgram() {
 	b_ram.write(0x000, MEM_DIGIT_SPRITES);
-	b_ram.write(0x200, MEM_B_ADVENTURE);
+	b_ram.write(0x200, MEM_B_ADVENTURE_2_TEST_CODE);
+	b_ram.write(0xf00, MEM_B_ADVENTURE_2_DRAW_FUNCTIONS);
+	b_ram.write(0xff0, MEM_B_ADVENTURE_2_SPRITES);
 }
 
 
