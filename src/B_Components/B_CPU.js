@@ -320,6 +320,7 @@ function B_CPU() {
 					case 0x0033:
 						x = this.register.read((opCode & 0x0f00) >> 8);
 						this.memory.write(this.vI, [(x - (x % 100)) / 100, ((x % 100) - (x % 10)) / 10, x % 10]);
+						this.setPC(this.pc + 2);
 					break;
 					
 					// Fx55 = LD [I], Vx
@@ -333,12 +334,12 @@ function B_CPU() {
 					
 					// Fx65 = LD Vx, [I]
 					case 0x0065:
-						x = (opCode & 0x0f00);
+						x = (opCode & 0x0f00) >> 8;
 						registerContents = this.memory.read(this.vI, x);
 						for(var i = 0; i < x; i++) {
-							this.reigster.write(i, registerContents[i]);
+							this.register.write(i, registerContents[i]);
 						}
-						this.setPc(this.pc + 2);
+						this.setPC(this.pc + 2);
 					break;
 					
 					// TODO - Default case for unknown opcode
