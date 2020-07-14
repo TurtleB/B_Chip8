@@ -1,5 +1,4 @@
 function B_CPU() {
-	// TODO - Rearrange functions so that "public" ones will be at the top.
 	
 	// TODO - Pass these in as parameters.
 	this.memory = b_ram;
@@ -13,9 +12,23 @@ function B_CPU() {
 	this.dt = 0;
 	this.st = 0;
 	
-	this.pcObserver = null;
-	this.vIObserver = null;
-	this.graphicsOut = null;
+	
+	// Simulate a single cycle of the CHIP-8 CPU
+	this.cycle = function() {
+		var op = this.getOp();
+		this.executeOpCode(op);
+	};
+	
+	
+	// Decrements timer registers
+	this.updateTimers = function() {
+		if(this.dt > 0) {
+			this.dt--;
+		}
+		if(this.st > 0) {
+			this.st--;
+		}
+	};
 	
 	
 	// Gets the opcode by reading 2 bytes from memory at the PC address
@@ -25,21 +38,15 @@ function B_CPU() {
 	}
 	
 	
-	// Sets the PC register to the given value and alerts the PC observer
+	// Sets the PC register to the given value
 	this.setPC = function(nextPC) {
 		this.pc = nextPC;
-		if(this.pcObserver != null) {
-			this.pcObserver.onPCUpdated();
-		}
 	}
 	
 	
-	// Sets the I register to the given value and alerts the VI observer
+	// Sets the I register to the given value
 	this.setVI = function(vI) {
 		this.vI = vI;
-		if(this.vIObserver != null) {
-			this.vIObserver.onVIUpdated();
-		}
 	}
 	
 	
@@ -347,42 +354,4 @@ function B_CPU() {
 			break;
 		}
 	}
-	
-	
-	// TODO - alert observers
-	//
-	this.updateTimers = function() {
-		if(this.dt > 0) {
-			this.dt--;
-		}
-		if(this.st > 0) {
-			this.st--;
-		}
-	};
-	
-	
-	// Simulate a single cycle of the CHIP-8 CPU
-	this.cycle = function() {
-		var op = this.getOp();
-		this.executeOpCode(op);
-	};
-	
-	
-	//
-	this.setGraphicsOut = function(graphicsOut) {
-		this.graphicsOut = graphicsOut;
-	};
-	
-	
-	//
-	this.setPCObserver = function(pcObserver) {
-		this.pcObserver = pcObserver;
-	};
-	
-	
-	//
-	this.setVIObserver = function(vIObserver) {
-		this.vIObserver = vIObserver;
-	};
-	
 }

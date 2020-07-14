@@ -4,8 +4,6 @@ function B_RAM() {
 	this.capacity = 4096;
 	// Memory data.
 	this.memory = [];
-	// Observer to notify of write operations.
-	this.observer = null;
 	
 	// Initialize memory to 0.
 	for(var i = 0; i < this.capacity; i++) {
@@ -31,15 +29,6 @@ function B_RAM() {
 		for(var i = 0; i < size; i++) {
 			this.memory[address + i] = data[i];
 		}
-		if(this.observer != null) {
-			this.observer.onMemoryWrite(address, size);
-		}
-	};
-	
-	
-	//
-	this.setObserver = function(observer) {
-		this.observer = observer;
 	};
 	
 	

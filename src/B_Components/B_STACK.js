@@ -4,8 +4,6 @@ function B_STACK() {
 	this.stack = [];
 	this.size = 16;
 	
-	this.observer = null;
-	
 	for(var i = 0; i < this.size; i++) {
 		this.stack.push(0);
 	}
@@ -20,9 +18,6 @@ function B_STACK() {
 			throw "STACK_OVERFLOW_EXCEPTION: address pushed to stack, but stack is full!";
 		} else {
 			this.stack[this.sp] = address;
-			if(this.observer != null) {
-				this.observer.onStackUpdated();
-			}
 		}
 	};
 	
@@ -32,19 +27,9 @@ function B_STACK() {
 		if(this.sp > 0) {
 			let address = this.stack[this.sp];
 			this.sp--;
-			if(this.observer != null) {
-				this.observer.onStackUpdated();
-			}
 			return address;
 		} else {
 			throw "STACK_UNDERFLOW_EXCEPTION: stack pointer is < 0!";
 		}
 	};
-	
-	
-	//
-	this.setObserver = function(observer) {
-		this.observer = observer;
-	};
-	
 }

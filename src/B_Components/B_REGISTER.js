@@ -1,7 +1,6 @@
 // Register file for 8-bit registers
 function B_REGISTER() {
 	this.registers = [];
-	this.observer = null;
 	this.numRegisters = 16;
 	
 	// Initialize registers to 0
@@ -19,14 +18,5 @@ function B_REGISTER() {
 	// Writes value of data to V[registerNum], truncating anything to the left of the least significant byte
 	this.write = function(registerNum, data) {
 		this.registers[registerNum] = data & 0xff;
-		if(this.observer != null) {
-			this.observer.onRegisterWrite(registerNum);
-		}
-	};
-	
-	
-	//
-	this.setObserver = function(observer) {
-		this.observer = observer;
 	};
 }
