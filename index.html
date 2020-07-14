@@ -1,6 +1,7 @@
 <html>
   <head>
 	<script src="p5.min.js"></script>
+	<script src="p5.sound.min.js"></script>
 	<script src="src/B_Components/B_RAM.js"></script>
 	<script src="src/B_Components/B_REGISTER.js"></script>
 	<script src="src/B_Components/B_STACK.js"></script>
@@ -11,6 +12,7 @@
 	<script src="src/Controllers/ChipController.js"></script>
 	<script src="src/Controllers/KeyboardController.js"></script>
 	<script src="src/Controllers/GraphicsController.js"></script>
+	<script src="src/Controllers/SoundController.js"></script>
 	<script src="test_setup.js"></script>
 	<script src="debug/mem_view.js" defer></script>
 	<script src="debug/reg_view.js" defer></script>
@@ -40,7 +42,11 @@
 		<mem-view></mem-view>
 	</div>
 	-->
+	<button onclick="enableSound();">ENABLE SOUND</button>
 	<script>
+	function enableSound() {
+		getAudioContext().resume();
+	}
 	</script>
   </body>
   

@@ -13,6 +13,7 @@ var b_cpu = null;
 var chipController = null;
 var graphicsController = null;
 var keyboardController = null;
+var soundController = null;
 
 //
 function setup() {
@@ -21,6 +22,7 @@ function setup() {
 	setupChip();
 	setupGraphics();
 	setupKeyboard();
+	setupSound();
 	// TODO - Setup for debug views
 	//noLoop();
 };
@@ -31,6 +33,7 @@ function draw() {
 	keyboardController.updateKeyState();
 	chipController.stepTimerCycle();
 	graphicsController.updateScreen();
+	soundController.updateSoundState();
 }
 
 
@@ -85,6 +88,9 @@ function setupKeyboard() {
 
 
 // TODO - Setup sound
-
+function setupSound() {
+	soundController = new SoundController();
+	soundController.setChip(b_cpu);
+}
 
 // TODO - Setup debug

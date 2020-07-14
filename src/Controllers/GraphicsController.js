@@ -10,7 +10,6 @@ function GraphicsController(width, height, scale) {
 	// Register the B_GRAPHICS for this controller
 	this.setGraphics = function(graphics) {
 		this.graphics = graphics;
-		
 	}
 	
 	
